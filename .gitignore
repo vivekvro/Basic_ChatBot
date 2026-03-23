@@ -1,0 +1,5 @@
+.env
+myenv/
+test_main.py
+test.ipynb
+.ipynb_checkpoints

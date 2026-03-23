@@ -1,0 +1,12 @@
+langgraph
+langchain
+langchain_groq
+
+
+streamlit
+uvicorn
+fastapi
+pydantic
+
+
+jupyter
