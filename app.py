@@ -32,9 +32,9 @@ st.sidebar.header("Chat history")
 for idx in range(len(keys)):
     hist_id = keys[-(idx+1)]
     if st.sidebar.button(hist_id):
-        st.session_state['thread_id']=hist_id
+        thread_id=hist_id
 
-thread_id = st.session_state['thread_id']
+
 config = {"configurable":{"thread_id":thread_id}}
 
 
