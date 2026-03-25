@@ -1,8 +1,10 @@
 from langgraph.graph import StateGraph,START,END
 from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import InMemorySaver
-from langchain_core.messages import BaseMessage,AIMessage,SystemMessage
+from langgraph.checkpoint.sqlite import SqliteSaver
 
+from langchain_core.messages import BaseMessage,AIMessage,SystemMessage,HumanMessage
+import sqlite3
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
@@ -37,11 +39,8 @@ Identity:
 - Your name is Xeptor. Mention it only if asked.
 """)]
     messages.extend(state['messages'])
-    full_response= ""
-    for chunk in  model.stream(messages):
-        token = chunk.content or ""
-        
-        yield {"messages":[AIMessage(content=token)]}
+    response = model.invoke(messages)
+    return  {"messages":[response]}
 
 graph = StateGraph(Chat_state)
 
@@ -50,5 +49,11 @@ graph.add_node("chatbot",get_chatbot)
 
 graph.add_edge(START,"chatbot")
 graph.add_edge("chatbot",END)
-checkpointer = InMemorySaver()
+
+
+conn = sqlite3.connect(database="chatbot.db",check_same_thread=False)
+
+checkpointer = SqliteSaver(conn=conn)
 chatbot = graph.compile(checkpointer)
+
+
