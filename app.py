@@ -3,8 +3,7 @@ from langchain_core.messages import BaseMessage,HumanMessage
 from backend.chatbot import chatbot
 from uuid import uuid4
 import sqlite3
-
-
+import os
 #------------ Session Id / conversation id -------------------
 
 if "thread_id" not in st.session_state:
@@ -12,8 +11,7 @@ if "thread_id" not in st.session_state:
 
 thread_id = st.session_state['thread_id']
 
-import sqlite3
-import os
+
 
 def get_all_threads(db_path="chatbot.db"):
     # Step 1: ensure DB file exists
