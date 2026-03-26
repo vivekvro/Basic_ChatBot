@@ -9,9 +9,11 @@ from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 load_dotenv()
 import os
-
 from typing import TypedDict,List,Annotated
 
+
+
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
 model = ChatGroq(model=os.getenv("BEST_OVERALL_MODEL"))
 
 
