@@ -1,6 +1,7 @@
 import streamlit as st
 from langchain_core.messages import HumanMessage
-from backend.chatbot import chatbot
+
+from backend.chatbot_with_tools import chatbot_with_tools
 from uuid import uuid4
 import sqlite3
 import os
@@ -117,7 +118,7 @@ def get_all_threads():
 
 # ===================== GET MESSAGES =====================
 def get_messages(thread_id):
-    state = chatbot.get_state(
+    state = chatbot_with_tools.get_state(
         config={"configurable": {"thread_id": thread_id}}
     )
     return state.values.get("messages", [])
@@ -173,7 +174,7 @@ if user_input:
 
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            ai_message = chatbot.invoke(
+            ai_message = chatbot_with_tools.invoke(
                 {"messages": [HumanMessage(content=user_input)]},
                 config=config
             )

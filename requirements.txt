@@ -2,8 +2,10 @@ langgraph
 langgraph-checkpoint-sqlite
 langchain
 langchain_groq
-
-
+langchain_huggingface
+langchain-community
+ddgs
+duckduckgo-search
 streamlit
 uvicorn
 fastapi
